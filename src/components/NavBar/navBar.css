@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.btn .badge {
+  position: absolute;
+  top: 1.7rem;
+}
+
+
+@media(max-width: 991px) {
+  .dropdown-menu[data-bs-popper] {
+    width: min-content;
+  }
+  .btn .badge {
+    position:relative;
+    top: -1em;
+  }
+  .btn {
+    margin-left: 0;
+  }
+}
