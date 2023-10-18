@@ -1,15 +1,14 @@
-import {Button, Container, Nav,NavDropdown,Navbar} from 'react-bootstrap';
+import {Button, Container, Dropdown, Nav,NavDropdown,Navbar} from 'react-bootstrap';
 import logo from '../../img/logo.png';
 import CartWidget from './CartWidget';
 import { Link } from 'react-router-dom';
 import './navBar.css'
 import  {CarritoContext}  from '../../Context/CarritoContext';
-import  {SesionContext}  from '../../Context/SesionContext';
 import { useContext } from 'react';
 
+
 function NavBar() {
-  const {carrito} = useContext(CarritoContext)
-  const {usuario} = useContext(SesionContext)
+  const {carrito, logout,logueado} = useContext(CarritoContext)
 
   return (
     <Navbar expand="lg" className="bg-light"  >
@@ -32,11 +31,21 @@ function NavBar() {
               <NavDropdown.Item as={Link} to="/categoria/ultra">Ultra Mass </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          { usuario 
-          ? <></> 
+          { logueado 
+          ? <>
+            <Dropdown className='mt-lg-1 mx-lg-3 mt-2'>
+              <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                <i className='fa fa-user'></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/wish-list">Wish List</Dropdown.Item>
+                <Dropdown.Item onClick={logout}>Cerrar Sesion</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </> 
           : <Button as={Link} to="/inicio-sesion" variant='dark' className=' mt-lg-1 mx-lg-1 mt-2'>Inicia Sesion</Button>
-          }
-          <CartWidget carrito={carrito}/>
+        }
+        <CartWidget carrito={carrito}/>
         </Navbar.Collapse>
         </Container>
     </Navbar>

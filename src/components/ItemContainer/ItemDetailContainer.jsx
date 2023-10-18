@@ -7,7 +7,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../services/firebase/firebaseConfig";
 
 function ItemDetailContainer () {
-  const {agregarAlCarrito, productos, setProductos,contador,setContador} = useContext(CarritoContext)
+  const { agregarAlCarrito, productos, setProductos,contador,setContador, logueado, agregarAWishList } = useContext(CarritoContext)
   const { itemId } = useParams()
   
   useEffect( () => {
@@ -19,6 +19,8 @@ function ItemDetailContainer () {
         }
        });
       }, [itemId, setProductos]);
+
+        
   const incremento = () => {
     if (contador < productos[0].stock ) {  
       setContador(contador + 1)
@@ -36,6 +38,10 @@ function ItemDetailContainer () {
           ? 
           <div className="d-flex justify-content-end mx-5 align-items-end ">
             <Card className='m-auto mt-3' style={{ width: '18rem', padding:'0'}}>
+            {logueado
+              ? <Button variant="outline-danger mx-2" onClick={() => agregarAWishList(productos[0])}><i className="fa fa-heart"></i></Button>
+              : <></>
+            }
             <Card.Img variant="top" src={productos[0].imgPath} alt={productos[0].producto} />
             <Card.Body>
               <Card.Title className="text-center">{productos[0].producto}</Card.Title>

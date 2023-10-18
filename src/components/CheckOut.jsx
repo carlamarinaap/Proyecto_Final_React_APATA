@@ -2,12 +2,16 @@ import {useContext, useState} from 'react'
 import  {CarritoContext}  from '../Context/CarritoContext';
 import { Button, Form, ListGroup } from 'react-bootstrap';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../services/firebase/firebaseConfig';
+import { app, db } from '../services/firebase/firebaseConfig';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
+import IniciarSesion from './IniciarSesion';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+const auth = getAuth(app)
 
 function CheckOut () {
-  const {setProductosEnCarrito,productosEnCarrito,total,setCarrito} = useContext(CarritoContext)
+  const {setProductosEnCarrito,productosEnCarrito,total,setCarrito, logueado, userEmail, logout} = useContext(CarritoContext)
   const [ordenGenerada, setOrdenGenerada] = useState(false)
   const [orderId, setOrderId] = useState('')
 
@@ -24,15 +28,14 @@ function CheckOut () {
     const nombre = e.target.nombre.value
     const apellido = e.target.apellido.value
     const telefono = e.target.telefono.value
-    const correo = e.target.correo.value
-    const confirmacion = e.target.confirmacion.value
 
-    if(nombre.trim() && apellido.trim() && telefono.trim() && correo.trim() && confirmacion.trim() ){
-      if(correo === confirmacion){
+    if(nombre.trim() && apellido.trim() && telefono.trim() ){
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
           const order = {
             buyer: {nombre: `${nombre} ${apellido}`, 
                     telefono: telefono,
-                    correo: correo,
+                    correo: user.email,
                     },
             items: productosEnCarrito,
             total: total
@@ -59,19 +62,14 @@ function CheckOut () {
           setOrdenGenerada(true)
           setCarrito(0)
           setProductosEnCarrito([])
-        } else {
-          const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            icon: 'error',
-            title: 'Los correos no coinciden',
-          })
         }
+      })
     } else {
       const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            icon: 'error',
-            title: 'Debe completar todos los campos',
-          })
+      MySwal.fire({
+        icon: 'error',
+        title: 'Debe completar todos los campos',
+      })
     }
   }
 
@@ -107,27 +105,29 @@ function CheckOut () {
           </ListGroup.Item>
         </div>
         <div className='container my-auto'>
-          <h3>Completá tus datos para continuar con la compra</h3>
-          <Form onSubmit={realizarCompra}>
-          <Form.Group controlId="nombre">
-            <Form.Control name='nombre' type="text" placeholder="Nombre" />
-          </Form.Group>
-          <Form.Group className="mt-3" controlId="apellido">
-            <Form.Control name='apellido' type="text" placeholder="Apellido" />
-          </Form.Group>
-          <Form.Group className="mt-3" controlId="telefono">
-            <Form.Control name='telefono' type="text" placeholder="Telefono" />
-          </Form.Group>
-          <Form.Group className="mt-3" controlId="correo">
-            <Form.Control name='correo' type="email" placeholder="Correo Electrónico" />
-          </Form.Group>
-          <Form.Group className="mt-3" controlId="confirmacion">
-            <Form.Control name='confirmacion' type="email" placeholder="Repita Correo Electrónico" />
-          </Form.Group>
-            <div className='d-flex justify-content-end'>
-                <Button type='submit' variant='dark' className='m-2'>Realizar Compra</Button>
-            </div>
-          </Form>
+          {logueado 
+          ? <>
+              <h3 className='text-center'>Estas comprando como <span className='text-danger'> { userEmail } </span></h3>
+              <h5 className='text-center'>Si no sos vos <Button className='my-auto btn-sm' onClick={logout} variant='outline-dark'>Cerrá Sesión</Button></h5>
+              <h5 className='text-center'>Completá tus datos para continuar con la compra</h5>
+              <Form onSubmit={realizarCompra}>
+              <Form.Group controlId="nombre">
+                <Form.Control name='nombre' type="text" placeholder="Nombre" />
+              </Form.Group>
+              <Form.Group className="mt-3" controlId="apellido">
+                <Form.Control name='apellido' type="text" placeholder="Apellido" />
+              </Form.Group>
+              <Form.Group className="mt-3" controlId="telefono">
+                <Form.Control name='telefono' type="text" placeholder="Telefono" />
+              </Form.Group>
+                <div className='d-flex justify-content-end'>
+                    <Button type='submit' variant='dark' className='m-2'>Realizar Compra</Button>
+                </div>
+              </Form>
+            </>
+          :
+        <IniciarSesion/>
+          }
         </div>
       </div>
       </>
