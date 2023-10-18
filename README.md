@@ -1,3 +1,11 @@
+El proyecto se trata de un e-commerce de venta de suplementos deportivos, me motivó hacer esta temática debido a que en los cursos anteriores me enfoqué en un gimnasio, y para seguir con dicha temática elegí este e-commerce.
+
+Posee algunos vínculos extra para parecer mas real:
+Un formulario de contacto y una descripción de quienes somos.
+Incluí la librería Sweet Alert para que muestre un mensaje cuando se agrega un item al carrito, se finaliza la compra y cuando los datos del checkout estan mal
+
+Utilicé bootstrap para los estilos de la página.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

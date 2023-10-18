@@ -1,13 +1,15 @@
-import {Container, Nav,NavDropdown,Navbar} from 'react-bootstrap';
+import {Button, Container, Nav,NavDropdown,Navbar} from 'react-bootstrap';
 import logo from '../../img/logo.png';
 import CartWidget from './CartWidget';
 import { Link } from 'react-router-dom';
 import './navBar.css'
 import  {CarritoContext}  from '../../Context/CarritoContext';
+import  {SesionContext}  from '../../Context/SesionContext';
 import { useContext } from 'react';
 
 function NavBar() {
   const {carrito} = useContext(CarritoContext)
+  const {usuario} = useContext(SesionContext)
 
   return (
     <Navbar expand="lg" className="bg-light"  >
@@ -30,6 +32,10 @@ function NavBar() {
               <NavDropdown.Item as={Link} to="/categoria/ultra">Ultra Mass </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          { usuario 
+          ? <></> 
+          : <Button as={Link} to="/inicio-sesion" variant='dark' className=' mt-lg-1 mx-lg-1 mt-2'>Inicia Sesion</Button>
+          }
           <CartWidget carrito={carrito}/>
         </Navbar.Collapse>
         </Container>
