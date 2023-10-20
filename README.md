@@ -40,24 +40,25 @@ Este contexto proporciona datos y funciones a los componentes relacionados con e
 
 Este componente envuelve toda la aplicación y proporciona el contexto CarritoContext a todos los componentes. Ayuda a gestionar el estado global de la aplicación y proporciona funciones para agregar productos al carrito, eliminar productos, vaciar el carrito, manejar la autenticación de usuarios y más.
 
-# Resumen de las bibliotecas y frameworks que utilizaste en tu aplicación de React, junto con una breve explicación de cada uno:
+# Resumen de las bibliotecas y frameworks que utilicé en la aplicación de React:
 
-React:
+## React Router:
 
-Explicación: React es una biblioteca de JavaScript de código abierto utilizada para crear interfaces de usuario (UI) interactivas y reactivas. Permite la construcción de componentes reutilizables que actualizan automáticamente la interfaz de usuario cuando cambian los datos.
-React Router:
+Es una biblioteca que se utiliza para manejar la navegación y las rutas en una aplicación React. Permite definir rutas y componentes asociados para crear una navegación fluida y amigable.
 
-Explicación: React Router es una biblioteca que se utiliza para manejar la navegación y las rutas en una aplicación React. Permite definir rutas y componentes asociados para crear una navegación fluida y amigable.
-Firebase:
+## Firebase:
 
-Explicación: Firebase es una plataforma de desarrollo de aplicaciones móviles y web desarrollada por Google. En tu aplicación, estás utilizando Firebase para autenticar a los usuarios, almacenar datos de productos en una base de datos y gestionar las órdenes de compra.
-React Bootstrap:
+Es una plataforma de desarrollo de aplicaciones móviles y web desarrollada por Google. Utilizo Firebase para autenticar a los usuarios, almacenar datos de productos en una base de datos y gestionar las órdenes de compra.
 
-Explicación: React Bootstrap es una biblioteca que proporciona componentes de interfaz de usuario preestilizados basados en Bootstrap para aplicaciones de React. Te ayuda a crear una interfaz de usuario atractiva y receptiva sin tener que escribir CSS personalizado.
-SweetAlert2:
+## React Bootstrap:
 
-Explicación: SweetAlert2 es una biblioteca que se utiliza para mostrar mensajes emergentes (alertas) con estilo en tu aplicación. La estás utilizando para mostrar mensajes de éxito o error después de operaciones como iniciar sesión, agregar productos al carrito, etc.
-FirebaseUI:
+Biblioteca que proporciona componentes de interfaz de usuario preestilizados basados en Bootstrap para aplicaciones de React. Te ayuda a crear una interfaz de usuario atractiva y receptiva sin tener que escribir CSS personalizado.
+
+## SweetAlert2:
+
+Biblioteca que se utiliza para mostrar mensajes emergentes (alertas) con estilo en tu aplicación. La utilizo para mostrar mensajes de éxito o error después de operaciones como iniciar sesión, agregar productos al carrito, etc.
+
+## FirebaseUI:
 
 Explicación: FirebaseUI es una biblioteca que te ayuda a implementar la interfaz de usuario de autenticación de Firebase en tu aplicación. Facilita la integración de Firebase para autenticación de usuarios.
 Estas bibliotecas y frameworks son fundamentales para el desarrollo de tu aplicación de comercio electrónico, ya que simplifican tareas como la autenticación de usuarios, la gestión de rutas, la creación de una interfaz de usuario atractiva y la comunicación con una base de datos en la nube.
