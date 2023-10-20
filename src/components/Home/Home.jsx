@@ -2,6 +2,7 @@ import CarouselBienvenida from './CarouselBienvenida';
 import ItemListContainer from '../ItemContainer/ItemListContainer';
 
 function Home() {
+
   return (
     <>
       <CarouselBienvenida/>

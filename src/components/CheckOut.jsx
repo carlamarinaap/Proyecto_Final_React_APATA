@@ -11,7 +11,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 const auth = getAuth(app)
 
 function CheckOut () {
-  const {setProductosEnCarrito,productosEnCarrito,total,setCarrito, logueado, userEmail, logout} = useContext(CarritoContext)
+  const {setProductosEnCarrito, setCarrito, logueado, logout,setTotal,total, productosEnCarrito} = useContext(CarritoContext)
   const [ordenGenerada, setOrdenGenerada] = useState(false)
   const [orderId, setOrderId] = useState('')
 
@@ -61,7 +61,9 @@ function CheckOut () {
           })
           setOrdenGenerada(true)
           setCarrito(0)
+          setTotal(0)
           setProductosEnCarrito([])
+          
         }
       })
     } else {
@@ -107,7 +109,7 @@ function CheckOut () {
         <div className='container my-auto'>
           {logueado 
           ? <>
-              <h3 className='text-center'>Estas comprando como <span className='text-danger'> { userEmail } </span></h3>
+              <h3 className='text-center'>Estas comprando como <span className='text-danger'> {auth.currentUser && auth.currentUser.email } </span></h3>
               <h5 className='text-center'>Si no sos vos <Button className='my-auto btn-sm' onClick={logout} variant='outline-dark'>Cerrá Sesión</Button></h5>
               <h5 className='text-center'>Completá tus datos para continuar con la compra</h5>
               <Form onSubmit={realizarCompra}>

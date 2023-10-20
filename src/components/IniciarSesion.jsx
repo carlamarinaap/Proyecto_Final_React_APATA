@@ -1,83 +1,12 @@
 import 'firebaseui/dist/firebaseui.css'
 import { Button, Card, Form } from 'react-bootstrap';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CarritoContext } from '../Context/CarritoContext';
-import withReactContent from "sweetalert2-react-content";
-import Swal from 'sweetalert2'
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from '../services/firebase/firebaseConfig';
-
-const auth = getAuth(app)
 
 function IniciarSesion() {
   
-  const{ setLogueado, logueado, logout} = useContext(CarritoContext)
-  const [registrando, setRegistrando] = useState(false)
+  const{ logueado, logout, registrando, setRegistrando, autenticacion} = useContext(CarritoContext)
 
-  const autenticacion = async (e) => {
-    e.preventDefault();
-    const correo = e.target.correo.value
-    const contrasena = e.target.contrasena.value
-
-    if (!correo.trim() || !contrasena.trim() ) {
-      const MySwal = withReactContent(Swal)
-      MySwal.fire({
-        icon: 'error',
-        title: 'Debe completar todos los campos',
-      })
-    } else if (contrasena.length < 6 ) {
-      const MySwal = withReactContent(Swal)
-      MySwal.fire({
-        icon: 'error',
-        title: 'La contraseña debe tener más de 6 caracteres',
-      })
-    
-    } else {
-      if (!registrando) {
-
-        try {
-          await createUserWithEmailAndPassword(auth, correo, contrasena)
-          const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            position: 'center',
-            width: '20rem',
-            icon: 'success',
-            title: 'Usuario creado con éxito',
-            showConfirmButton: false,
-            timer: 2000
-          })
-        } catch (error) {
-          console.log(error);
-          const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            icon: 'error',
-            title: 'Este usuario ya está registrado',
-          })
-        }
-
-      } else {
-        try {
-          await signInWithEmailAndPassword(auth, correo, contrasena)
-          const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            position: 'center',
-            width: '20rem',
-            icon: 'success',
-            title: 'Bienvenido',
-            showConfirmButton: false,
-            timer: 2000
-          })
-          setLogueado(true)
-        } catch (error) {
-          const MySwal = withReactContent(Swal)
-          MySwal.fire({
-            icon: 'error',
-            title: 'Usuario o Contraseña Incorrecta',
-          })
-        }
-      }
-    }
-  }
   return(
     logueado ? 
     <div className='d-flex justify-content-center'>

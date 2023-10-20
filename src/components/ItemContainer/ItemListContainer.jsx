@@ -9,6 +9,7 @@ import { Button } from "react-bootstrap";
 function  ItemListContainer({greeting}) {  
   const { categoriaId } = useParams() 
   const { setProductos, productos, logueado, agregarAWishList } = useContext(CarritoContext)
+
   useEffect( () => {
     const coleccionRef = categoriaId
       ? query(collection(db, "productos"), where("categoria","==",categoriaId))
@@ -20,6 +21,7 @@ function  ItemListContainer({greeting}) {
         })
         .catch(error => console.log(error))
     }, [categoriaId,setProductos]);
+    
   return (
     <>
       <h1 className="text-center m-3">{ categoriaId ? categoriaId : greeting}</h1> 

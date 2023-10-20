@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Carrito () {
 
-  const {productosEnCarrito,eliminarProducto,vaciarCarrito,total} = useContext(CarritoContext)
+  const {productosEnCarrito, eliminarProducto, vaciarCarrito,total} = useContext(CarritoContext)
 
   if(productosEnCarrito.length === 0){
     return(<h4 className='text-danger text-center m-5'>No posee productos en el carrito</h4>)
@@ -24,7 +24,7 @@ function Carrito () {
                 <Button variant='dark' onClick={() => eliminarProducto(prod.id)}>Eliminar</Button>
               </div>
             </ListGroup.Item>
-          </ListGroup>
+          </ListGroup>  
         ))}
         <ListGroup.Item className='d-flex justify-content-between'>
           <h5>Total:</h5>
